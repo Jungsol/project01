@@ -11,5 +11,6 @@ public class MemberService {
     private final MemberRepository MemberRepository;
 
     public int save(MemberDTO memberDTO) {
+        return MemberRepository.save(memberDTO);
     }
 }
