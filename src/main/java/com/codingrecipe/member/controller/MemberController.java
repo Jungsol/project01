@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberController {
   private final MemberService memberService; // 의존성 주입
-//    @GetMapping("/member/save") // 짝꿍 : @Controller //링크를 타고 오는거기때문에 GetMapping사용
+//    @GetMapping("/member/save") // 짝꿍 : @Controller //링크를 타고 오기때문에 GetMapping사용
   @GetMapping("/save") // 짝꿍 : @RequestMapping("/member")
-    public String saveForm() { //save.jsp를 띄워주는 메소드
-        return "save";
-    }
+  public String saveForm() { //save.jsp를 띄워주는 메소드
+      return "save";
+  }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute MemberDTO memberDTO){
-      /*memberDTO 객체로 받음. -> 결국 dto에 담긴 값의 최종목적지는 DB임.*/
-      int saveResult = memberService.save(memberDTO);
-      /*저장한 정보를 int 타입으로 리턴을 받고 0보다 크면 login(성공) 아닐 경우 실패(save)*/
-      if(saveResult > 0){
-        return "login";
-      }else {
-        return "save";
-      }
+  @PostMapping("/save")
+  public String save(@ModelAttribute MemberDTO memberDTO){
+    /*memberDTO 객체로 받음. -> 결국 dto에 담긴 값의 최종목적지는 DB임.*/
+    int saveResult = memberService.save(memberDTO);
+    /*저장한 정보를 int 타입으로 리턴을 받고 0보다 크면 login(성공) 아닐 경우 실패(save)*/
+    if(saveResult > 0){
+      return "login";
+    }else {
+      return "save";
     }
+  }
 }

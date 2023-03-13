@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+    <!--회원가입을 위한 쿼리-->
+    <!--parameterType은 넘기는 데이터의 full경로를 작성해야한다. 예시)"com.codingrecipe.member.dto.MemberDTO"
+    줄임말 쓰는 법 :마음대로 member라고 작성할 수 있는건 아니고, mybatis-config.xml에 typeAliases를 작성해야함.
+    별칭과 비슷한 기능-->
+    <insert id="save" parameterType="member">
+        <!-- memberDTO 객체로받았기 때문에 해당 위치에 대한 것을 dto 필드명으로 표시할 수 있음. 필드명 똑같아야함
+        id는 auto-increment지정해놨기 때문에 insert가 수행될 때마다 하나씩 올라감-->
+        insert into member_table(memberEmail, memberPassword, memberName, memberAge, memberMobile)
+        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberAge}, #{memberMobile})
+    </insert>
+    <select id="login" parameterType="member" resultType="member">
+        select * from member_table where memberEmail=#{memberEmail} and memberPassword=#{memberPassword}
+    </select>
+    <select id="findAll" resultType="member">
+        select * from member_table
+    </select>
+    <select id="findById" parameterType="Long" resultType="member">
+        select * from member_table where id=#{id}
+    </select>
+    <delete id="delete" parameterType="Long">
+        delete from member_table where id=#{id}
+    </delete>
+    <select id="findByMemberEmail" parameterType="String" resultType="member">
+        select * from member_table where memberEmail=#{loginEmail}
+    </select>
+    <update id="update" parameterType="member">
+        update member_table set memberAge=#{memberAge}, memberMobile=#{memberMobile}
+        where id=#{id}
+    </update>
+</mapper>
