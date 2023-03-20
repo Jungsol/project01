@@ -18,4 +18,9 @@ public class MemberRepository { /*mybatis의 기능별 쿼리 사용*/
         * mapper를 호출할 때 넘기는 뭔가가 있다? 그럼 해당 Member.save에서 parameterType이 필요하게 됨*/
         return sql.insert("Member.save", memberDTO);
     }
+
+    public MemberDTO login(MemberDTO memberDTO) { /*memberDTO 타입으로 값을 넘기겠다*/
+        return sql.selectOne("Member.login", memberDTO); /*selectOne = 조회결과가 하나 / selectList = 여러개일 경우*/
+        /*조회결과가 여러개인데 selecOne을 사용시 500 에러가 날 수 있다. 테이블 잘 짜야함.*/
+    }
 }
