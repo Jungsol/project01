@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository { /*mybatis의 기능별 쿼리 사용*/
@@ -22,5 +24,22 @@ public class MemberRepository { /*mybatis의 기능별 쿼리 사용*/
     public MemberDTO login(MemberDTO memberDTO) { /*memberDTO 타입으로 값을 넘기겠다*/
         return sql.selectOne("Member.login", memberDTO); /*selectOne = 조회결과가 하나 / selectList = 여러개일 경우*/
         /*조회결과가 여러개인데 selecOne을 사용시 500 에러가 날 수 있다. 테이블 잘 짜야함.*/
+    }
+
+    public List<MemberDTO> findAll() { /*전체 data를 끌어오는게 목적이기때문에 매개변수 없음*/
+        return sql.selectList("Member.findAll");
+    }
+
+    public MemberDTO findById(Long id) {
+        return sql.selectOne("Member.findById", id);
+    }
+
+    public void delete(Long id) {
+        sql.delete("Member.delete", id);
+        /*delete 매소드가 int타입의 return을 주긴 함. 1이상의 값이면 정상삭제된 것.*/
+    }
+
+    public MemberDTO findByMemberEmail(String loginEmail) {
+        return sql.selectOne("Member.findByMemberEmail", loginEmail);
     }
 }
