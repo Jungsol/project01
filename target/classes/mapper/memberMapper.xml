@@ -35,4 +35,12 @@
     <select id="findByMemberEmail" parameterType="String" resultType="member">
         select * from member_table where memberEmail=#{loginEmail}
     </select>
+
+    <update id="update" parameterType="member">
+        update member_table set memberAge=#{memberAge}, memberMobile=#{memberMobile}
+        where id=#{id}
+        <!-- update 테이블명 set 수정할값1, 수정할값2..(콤마로)
+             where (누구)
+             where절이 빠지면 전체가 수정되므로 주의!-->
+    </update>
 </mapper>

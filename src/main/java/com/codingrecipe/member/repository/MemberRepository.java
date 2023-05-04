@@ -42,4 +42,9 @@ public class MemberRepository { /*mybatis의 기능별 쿼리 사용*/
     public MemberDTO findByMemberEmail(String loginEmail) {
         return sql.selectOne("Member.findByMemberEmail", loginEmail);
     }
+
+    public int update(MemberDTO memberDTO) {
+        return sql.update("Member.update",memberDTO);
+        /*update 매소드가 int타입의 return을 주긴 함. 1이상의 값이면 정상삭제된 것.*/
+    }
 }

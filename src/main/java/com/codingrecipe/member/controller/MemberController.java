@@ -86,4 +86,15 @@ public class MemberController {
 
   }
 
+  //수정처리
+  @PostMapping("/update")
+  public String update(@ModelAttribute MemberDTO memberDTO){
+    boolean result = memberService.update(memberDTO);
+    if(result){
+      return "redirect:/member?id="+memberDTO.getId();
+    } else {
+      return "index";
+    }
+  }
+
 }
